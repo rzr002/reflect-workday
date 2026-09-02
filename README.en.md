@@ -2,7 +2,7 @@
 
 A privacy-first Codex skill that reconstructs a workday or week from short Codex and Git evidence.
 
-[中文说明](README.md) · [Privacy](docs/privacy.md) · [Architecture](docs/architecture.md) · [Contributing](CONTRIBUTING.md)
+[中文说明](README.md) · [Privacy](docs/privacy.md) · [Architecture](docs/architecture.md) · [GitHub publishing](docs/publishing.md) · [Contributing](CONTRIBUTING.md)
 
 > The report is a set of visible clues plus your own recollection. It is not a timesheet or a performance score.
 

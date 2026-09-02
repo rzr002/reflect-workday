@@ -2,7 +2,7 @@
 
 一个注重隐私的 Codex skill：用精简的 Codex 与 Git 线索，帮你回想一天或一周做过什么。
 
-[English](README.en.md) · [隐私设计](docs/privacy.md) · [工作原理](docs/architecture.md) · [参与贡献](CONTRIBUTING.md)
+[English](README.en.md) · [隐私设计](docs/privacy.md) · [工作原理](docs/architecture.md) · [发布到 GitHub](docs/publishing.md) · [参与贡献](CONTRIBUTING.md)
 
 > 它提供的是“可见线索 + 本人回想”，不是精确工时，也不用于绩效评价。
 
