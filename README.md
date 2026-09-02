@@ -57,7 +57,7 @@ Reflect Workday 不会读取或保存：
 克隆仓库：
 
 ```bash
-git clone YOUR_REPOSITORY_URL
+git clone https://github.com/rzr002/reflect-workday.git
 cd reflect-workday
 ```
 

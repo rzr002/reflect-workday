@@ -46,7 +46,7 @@ The core Python scripts use the standard library only.
 ## Install
 
 ```bash
-git clone YOUR_REPOSITORY_URL
+git clone https://github.com/rzr002/reflect-workday.git
 cd reflect-workday
 mkdir -p "$HOME/.agents/skills"
 ln -s "$(pwd)" "$HOME/.agents/skills/reflect-workday"
