@@ -1,0 +1,61 @@
+{
+  "schema_version": 2,
+  "collection_status": "complete",
+  "generated_at": "2025-03-17T01:00:00+00:00",
+  "person": {
+    "display_name": "示例用户",
+    "git_author": "Example User"
+  },
+  "period": {
+    "start_inclusive": "2025-03-10T00:00:00+08:00",
+    "end_exclusive": "2025-03-17T00:00:00+08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "sources": {
+    "hosts": [
+      {"host_id": "dev-a", "status": "collected", "events": 2},
+      {"host_id": "dev-b", "status": "collected", "events": 1}
+    ]
+  },
+  "events": [
+    {
+      "id": "codex:example-1",
+      "source": "codex",
+      "shape": "interval",
+      "start": "2025-03-10T09:00:00+08:00",
+      "end": "2025-03-10T09:40:00+08:00",
+      "project": "sample-service",
+      "title": "核对接口契约",
+      "outcome": "确认旧客户端的兼容处理方式",
+      "evidence": "observed",
+      "host_ids": ["dev-a"]
+    },
+    {
+      "id": "git:sample:abc123",
+      "source": "git",
+      "shape": "point",
+      "start": "2025-03-10T10:15:00+08:00",
+      "end": null,
+      "project": "sample-service",
+      "title": "test: cover compatibility branch",
+      "outcome": "Example User 提交 abc123",
+      "evidence": "observed",
+      "host_ids": ["dev-a", "dev-b"],
+      "repo_fingerprint": "sample",
+      "commit_hash": "abc123"
+    },
+    {
+      "id": "codex:example-2",
+      "source": "codex",
+      "shape": "interval",
+      "start": "2025-03-12T14:00:00+08:00",
+      "end": "2025-03-12T15:10:00+08:00",
+      "project": "sample-service",
+      "title": "整理交付检查表",
+      "outcome": "补齐发布前验证步骤",
+      "evidence": "observed",
+      "host_ids": ["dev-b"]
+    }
+  ],
+  "limitations": []
+}

@@ -1,0 +1,39 @@
+name: Bug report
+description: Report a reproducible problem using synthetic data only
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Reflect Workday.
+
+        Do not attach real Codex sessions, SSH configuration, credentials, internal addresses, business logs, evidence files, or private reports. Replace them with a minimal synthetic example.
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the behavior and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Synthetic reproduction
+      description: Provide the smallest safe example and exact command or prompt.
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: 0.1.0 or commit hash
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy confirmation
+      options:
+        - label: I verified that this report contains no credentials or private work data.
+          required: true

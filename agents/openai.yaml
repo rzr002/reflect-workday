@@ -1,0 +1,4 @@
+interface:
+  display_name: "拾光 · 工作回想"
+  short_description: "从 Codex 与 Git 线索还原一天或一周，生成私人回想。"
+  default_prompt: "使用 $reflect-workday 回顾我的工作轨迹：日维度生成只读时间线，周维度生成周一到周日的精炼汇总表。"

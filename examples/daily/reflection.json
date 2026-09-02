@@ -1,0 +1,91 @@
+{
+  "headline": "围绕接口兼容、测试覆盖与发布准备推进",
+  "note": "这是合成的数字线索示例，不是完整工时记录。",
+  "schedule": {
+    "work_periods": [
+      {
+        "start": "09:00",
+        "end": "12:00"
+      },
+      {
+        "start": "13:30",
+        "end": "17:30"
+      }
+    ],
+    "breaks": [
+      {
+        "start": "12:00",
+        "end": "13:30",
+        "label": "午休"
+      }
+    ]
+  },
+  "highlights": [
+    "确认旧客户端兼容方式",
+    "补齐边界测试并完成回归",
+    "整理发布与回滚检查表"
+  ],
+  "blocks": [
+    {
+      "id": "focus-contract",
+      "date": "2025-03-10",
+      "start": "09:10",
+      "end": "10:20",
+      "title": "核对接口兼容方案",
+      "summary": "核对版本差异，并确认旧客户端继续使用兼容分支。",
+      "source": "codex",
+      "evidence": "observed",
+      "event_ids": [
+        "codex:example-contract"
+      ]
+    },
+    {
+      "id": "focus-tests",
+      "date": "2025-03-10",
+      "start": "09:50",
+      "end": "11:00",
+      "title": "补齐兼容边界测试",
+      "summary": "覆盖旧字段缺失、混合版本输入等边界情况。",
+      "source": "codex",
+      "evidence": "observed",
+      "event_ids": [
+        "codex:example-tests"
+      ]
+    },
+    {
+      "id": "focus-fix",
+      "date": "2025-03-10",
+      "start": "13:40",
+      "end": "15:00",
+      "title": "实现兼容处理并验证回归",
+      "summary": "完成兼容分支，并确认现有测试继续通过。",
+      "source": "mixed",
+      "evidence": "observed",
+      "event_ids": [
+        "codex:example-fix",
+        "git:sample:abc123"
+      ]
+    },
+    {
+      "id": "focus-release",
+      "date": "2025-03-10",
+      "start": "16:00",
+      "end": "17:00",
+      "title": "整理发布检查表",
+      "summary": "补齐上线前验证与回滚步骤，方便交付复核。",
+      "source": "codex",
+      "evidence": "observed",
+      "event_ids": [
+        "codex:example-release"
+      ]
+    }
+  ],
+  "prompts": [
+    {
+      "date": "2025-03-10",
+      "start": "11:00",
+      "end": "12:00",
+      "text": "上午最后一小时没有数字线索：是在开会、讨论，还是暂时离开了电脑？"
+    }
+  ]
+}

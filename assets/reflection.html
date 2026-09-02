@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>拾光 · 工作回想</title>
+  <style>
+    :root {
+      --paper: #f2eee5;
+      --paper-deep: #e8e0d2;
+      --card: rgba(255, 253, 248, 0.82);
+      --ink: #25302a;
+      --muted: #69736d;
+      --faint: #9da29d;
+      --line: rgba(37, 48, 42, 0.12);
+      --moss: #537166;
+      --moss-soft: #dbe6df;
+      --apricot: #c47f5c;
+      --apricot-soft: #f3ded0;
+      --lavender: #766d91;
+      --lavender-soft: #e4e0ed;
+      --sun: #d6ad57;
+      --sun-soft: #f4e8c8;
+      --shadow: 0 18px 50px rgba(50, 44, 35, 0.08);
+      --hour: 72px;
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { color-scheme: light; background: var(--paper); }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 5%, rgba(255,255,255,.82), transparent 30%),
+        radial-gradient(circle at 90% 14%, rgba(214,173,87,.10), transparent 23%),
+        linear-gradient(135deg, rgba(83,113,102,.035) 25%, transparent 25%) 0 0 / 32px 32px,
+        var(--paper);
+    }
+
+    button, input, select, textarea { font: inherit; }
+    button { color: inherit; }
+
+    .shell { width: min(1480px, calc(100% - 32px)); margin: 0 auto; padding: 42px 0 54px; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 48px; }
+    .brand { display: flex; align-items: center; gap: 13px; }
+    .brand-mark {
+      width: 42px; height: 42px; border: 1px solid rgba(37,48,42,.18); border-radius: 50%;
+      display: grid; place-items: center; background: rgba(255,255,255,.48); box-shadow: 0 7px 22px rgba(37,48,42,.07);
+    }
+    .brand-mark::before { content: ""; width: 12px; height: 12px; border-radius: 50% 50% 50% 4px; background: var(--moss); transform: rotate(-35deg); }
+    .brand-name { font-family: Georgia, "Songti SC", serif; font-size: 20px; letter-spacing: .06em; }
+    .privacy { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
+    .privacy::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #71a27f; box-shadow: 0 0 0 4px rgba(113,162,127,.13); }
+
+    .hero { display: grid; grid-template-columns: 1.5fr .8fr; gap: 32px; align-items: end; margin-bottom: 28px; }
+    .eyebrow { color: var(--apricot); letter-spacing: .18em; font-size: 12px; font-weight: 700; text-transform: uppercase; margin: 0 0 16px; }
+    h1 { font-family: Georgia, "Songti SC", serif; font-weight: 500; line-height: 1.18; font-size: clamp(38px, 5vw, 68px); letter-spacing: -.035em; margin: 0; max-width: 850px; }
+    .day-summary { color: #3e4943; font-family: Georgia, "Songti SC", serif; line-height: 1.55; margin: 20px 0 0; max-width: 760px; font-size: clamp(18px, 2vw, 23px); }
+    .hero-note { color: var(--muted); line-height: 1.8; margin: 10px 0 0; max-width: 760px; font-size: 14px; }
+    .identity-card { padding: 20px 22px; background: rgba(255,255,255,.36); border: 1px solid var(--line); border-radius: 20px; }
+    .identity-card small { color: var(--faint); display: block; margin-bottom: 7px; }
+    .identity-card strong { font-family: Georgia, "Songti SC", serif; font-size: 25px; font-weight: 500; }
+    .identity-card span { display: block; color: var(--muted); margin-top: 7px; font-size: 13px; }
+    .identity-card .schedule-line { color: var(--moss); font-weight: 650; line-height: 1.5; }
+
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 28px 0 30px; }
+    .metric { min-height: 110px; padding: 19px 21px; border-radius: 20px; background: var(--card); border: 1px solid rgba(255,255,255,.75); box-shadow: 0 12px 34px rgba(50,44,35,.05); }
+    .metric-label { color: var(--muted); font-size: 13px; }
+    .metric-value { margin: 10px 0 2px; font-family: Georgia, "Songti SC", serif; font-size: 30px; font-weight: 500; }
+    .metric-caption { color: var(--faint); font-size: 12px; }
+
+    .day-nav { display: flex; gap: 9px; overflow-x: auto; padding: 2px 1px 13px; scrollbar-width: thin; }
+    .day-pill { border: 1px solid var(--line); background: rgba(255,255,255,.35); border-radius: 99px; padding: 10px 15px; white-space: nowrap; cursor: pointer; transition: .2s ease; }
+    .day-pill:hover { transform: translateY(-1px); background: rgba(255,255,255,.7); }
+    .day-pill.active { background: var(--ink); color: #f8f4ec; border-color: var(--ink); }
+
+    .content-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; align-items: start; }
+    .panel { background: var(--card); border: 1px solid rgba(255,255,255,.75); border-radius: 26px; box-shadow: var(--shadow); overflow: hidden; }
+    .panel-head { display: flex; justify-content: space-between; gap: 20px; align-items: center; padding: 24px 26px 20px; border-bottom: 1px solid var(--line); }
+    .panel-head h2, .side-section h2 { font-family: Georgia, "Songti SC", serif; font-weight: 500; font-size: 22px; margin: 0; }
+    .panel-title-note { color: var(--faint); font-size: 11px; margin: 7px 0 0; line-height: 1.5; }
+    .legend { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 12px; }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot.codex { background: var(--moss); }
+    .dot.git { background: var(--lavender); }
+    .dot.manual { background: var(--apricot); }
+    .band { width: 14px; height: 8px; border-radius: 3px; display: inline-block; background: rgba(83,113,102,.10); border: 1px solid rgba(83,113,102,.18); }
+
+    .prompt-strip { display: grid; gap: 9px; padding: 16px 24px 0; }
+    .prompt-strip[hidden] { display: none; }
+    .timeline-scroll { overflow-y: auto; overflow-x: hidden; max-height: 1120px; scrollbar-gutter: stable; }
+    .timeline { position: relative; margin: 28px 24px 34px 74px; min-width: 0; min-height: calc(var(--hours) * var(--hour)); }
+    .hour-row { position: absolute; left: 0; right: 0; height: 1px; background: var(--line); z-index: 1; }
+    .hour-row span { position: absolute; right: calc(100% + 18px); top: -8px; color: var(--faint); font-size: 11px; font-variant-numeric: tabular-nums; }
+    .work-window, .break-window { position: absolute; left: 0; right: 0; border-radius: 15px; z-index: 0; pointer-events: none; }
+    .work-window { background: rgba(83,113,102,.065); border: 1px solid rgba(83,113,102,.10); }
+    .break-window { background: repeating-linear-gradient(-45deg, rgba(105,115,109,.028), rgba(105,115,109,.028) 7px, transparent 7px, transparent 14px); }
+    .work-window span, .break-window span { position: absolute; right: 10px; top: 7px; color: rgba(83,113,102,.52); font-size: 10px; letter-spacing: .06em; }
+    .break-window span { color: var(--faint); }
+    .event {
+      position: absolute; left: 0; right: auto; min-height: 60px; border: 0; border-radius: 15px; padding: 11px 14px;
+      text-align: left; cursor: pointer; overflow: hidden; box-shadow: 0 6px 16px rgba(37,48,42,.06);
+      transition: transform .16s ease, box-shadow .16s ease; z-index: 3;
+    }
+    .event::before { content: ""; position: absolute; left: 0; top: 0; width: 4px; height: var(--duration-height, 100%); border-radius: 4px; }
+    .event:hover { transform: translateY(-1px); box-shadow: 0 9px 20px rgba(37,48,42,.11); z-index: 7; }
+    .event.codex { background: var(--moss-soft); }
+    .event.codex::before { background: var(--moss); }
+    .event.git { background: var(--lavender-soft); }
+    .event.git::before { background: var(--lavender); }
+    .event.mixed { background: linear-gradient(110deg, var(--moss-soft), var(--lavender-soft)); }
+    .event.mixed::before { background: linear-gradient(var(--moss) 50%, var(--lavender) 50%); }
+    .event.manual { background: var(--apricot-soft); }
+    .event.manual::before { background: var(--apricot); }
+    .event-time-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .event-time { color: rgba(37,48,42,.62); font-size: 11px; font-weight: 700; letter-spacing: .035em; }
+    .event-detail-hint { color: rgba(37,48,42,.48); font-size: 10px; white-space: nowrap; }
+    .event-title { font-weight: 700; margin-top: 4px; line-height: 1.35; font-size: 14px; overflow-wrap: anywhere; }
+    .event-summary { display: none; color: var(--muted); margin-top: 5px; line-height: 1.45; font-size: 12px; }
+    .event.roomy .event-summary { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .gap {
+      position: relative; width: 100%; z-index: 2; border: 1.5px dashed rgba(105,115,109,.34); border-radius: 16px;
+      padding: 11px 15px; color: var(--muted); background: rgba(255,255,255,.26); text-align: left;
+    }
+    .gap strong { color: var(--ink); font-size: 12px; margin-right: 8px; }
+    .gap span { font-family: Georgia, "Songti SC", serif; font-size: 13px; line-height: 1.45; }
+    .gap em { color: var(--apricot); font-size: 11px; font-style: normal; margin-left: 9px; white-space: nowrap; }
+
+    .sidebar { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 16px; position: static; }
+    .side-section { padding: 23px; background: var(--card); border: 1px solid rgba(255,255,255,.75); border-radius: 24px; box-shadow: 0 14px 38px rgba(50,44,35,.055); }
+    .side-section h2 { font-size: 20px; margin-bottom: 16px; }
+    .highlights { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+    .highlights li { display: grid; grid-template-columns: 22px 1fr; gap: 9px; color: #3e4943; line-height: 1.5; font-size: 14px; }
+    .highlights li::before { content: "↗"; width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%; color: var(--moss); background: var(--moss-soft); font-size: 11px; }
+    .soft-copy { color: var(--muted); line-height: 1.7; font-size: 13px; margin: 0; }
+    .footprints { display: grid; gap: 10px; max-height: 310px; overflow: auto; padding-right: 4px; }
+    .footprint { padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .footprint:last-child { border: 0; }
+    .footprint-meta { display: flex; justify-content: space-between; gap: 12px; color: var(--faint); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
+    .footprint-title { font-size: 12px; line-height: 1.5; margin-top: 5px; }
+    .empty-note { color: var(--faint); font-size: 12px; font-style: italic; }
+
+    .footer { display: flex; justify-content: space-between; gap: 24px; align-items: flex-end; padding: 34px 4px 0; color: var(--faint); font-size: 11px; line-height: 1.7; }
+    .footer em { color: var(--muted); font-family: Georgia, "Songti SC", serif; font-size: 13px; }
+
+    dialog { width: min(520px, calc(100% - 30px)); border: 0; border-radius: 24px; padding: 0; background: #fbf8f1; color: var(--ink); box-shadow: 0 30px 100px rgba(37,48,42,.28); }
+    dialog::backdrop { background: rgba(31,39,34,.42); backdrop-filter: blur(5px); }
+    .dialog-body { padding: 26px; }
+    .dialog-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin-bottom: 22px; }
+    .dialog-head h2 { font-family: Georgia, "Songti SC", serif; font-weight: 500; margin: 0; font-size: 25px; }
+    .dialog-head p { margin: 7px 0 0; color: var(--muted); font-size: 12px; }
+    .event-detail-copy { color: #3e4943; line-height: 1.75; font-size: 15px; margin: 0; white-space: pre-wrap; }
+    .event-detail-foot { color: var(--faint); font-size: 11px; line-height: 1.6; margin: 22px 0 0; padding-top: 16px; border-top: 1px solid var(--line); }
+    .close { border: 0; background: transparent; cursor: pointer; font-size: 24px; color: var(--muted); }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .identity-card { max-width: 360px; }
+      .content-grid { grid-template-columns: 1fr; }
+      .sidebar { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 22px, 1480px); padding-top: 22px; }
+      .topbar { margin-bottom: 32px; }
+      .privacy { display: none; }
+      h1 { font-size: 39px; }
+      .metrics { grid-template-columns: 1fr; }
+      .metric { min-height: 0; }
+      .sidebar { grid-template-columns: 1fr; }
+      .panel-head { align-items: flex-start; flex-direction: column; }
+      .timeline { margin-left: 58px; margin-right: 13px; }
+      .legend { gap: 8px; }
+      .footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark"></span><span class="brand-name">拾光</span></div>
+      <div class="privacy">只在本地 · 在 Codex 中补充</div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Private workday reflection</p>
+        <h1 id="headline">工作回想</h1>
+        <p class="day-summary" id="daySummary">这一天，留下了一些线索。</p>
+        <p class="hero-note" id="heroNote">没有记录就是没有记录。可能在工作、休息、摸鱼，也可能只是还没想起来。</p>
+      </div>
+      <aside class="identity-card">
+        <small>这是谁的一天</small>
+        <strong id="personName">—</strong>
+        <span id="periodText">—</span>
+        <span class="schedule-line" id="scheduleText">工作时段尚未设置</span>
+      </aside>
+    </section>
+
+    <section class="metrics" aria-label="回想概览">
+      <article class="metric"><div class="metric-label">数字脚印</div><div class="metric-value" id="eventCount">0</div><div class="metric-caption">Codex 与 Git 的轻量线索</div></article>
+      <article class="metric"><div class="metric-label">被整理的主题</div><div class="metric-value" id="blockCount">0</div><div class="metric-caption">相近事项已合成易懂片段</div></article>
+      <article class="metric"><div class="metric-label">还值得想想</div><div class="metric-value" id="gapCount">0</div><div class="metric-caption">空白不是结论，是邀请</div></article>
+    </section>
+
+    <nav class="day-nav" id="dayNav" aria-label="选择日期"></nav>
+
+    <section class="content-grid">
+      <article class="panel">
+        <header class="panel-head">
+          <div>
+            <h2 id="timelineTitle">一天的纹理</h2>
+            <p class="panel-title-note">并行任务会分泳道展开 · 点击卡片看完整总结</p>
+          </div>
+          <div class="legend">
+            <span><i class="dot codex"></i>Codex</span>
+            <span><i class="dot git"></i>Git</span>
+            <span><i class="dot manual"></i>本人补记</span>
+            <span><i class="band"></i>惯常工作段</span>
+          </div>
+        </header>
+        <div class="prompt-strip" id="promptStrip" hidden></div>
+        <div class="timeline-scroll"><div class="timeline" id="timeline"></div></div>
+      </article>
+
+      <aside class="sidebar">
+        <section class="side-section">
+          <h2>今天做了什么</h2>
+          <ul class="highlights" id="highlights"></ul>
+        </section>
+
+        <section class="side-section">
+          <h2>数字脚印</h2>
+          <div class="footprints" id="footprints"></div>
+        </section>
+      </aside>
+    </section>
+
+    <footer class="footer">
+      <span>Codex 时间是任务运行窗口，Git 是提交时间点；两者都不等于完整工时。</span>
+      <em>“别急着评价这一天，先把它想起来。”</em>
+    </footer>
+  </main>
+
+  <dialog id="eventDialog">
+    <div class="dialog-body">
+      <div class="dialog-head">
+        <div><h2 id="eventDetailTitle">工作片段</h2><p id="eventDetailMeta">—</p></div>
+        <button class="close" type="button" id="closeEventDialog" aria-label="关闭">×</button>
+      </div>
+      <p class="event-detail-copy" id="eventDetailCopy"></p>
+      <p class="event-detail-foot">这是从 Codex、Git 或本人补记中整理出的回想线索，不是精确工时判断。</p>
+    </div>
+  </dialog>
+  <script>
+    const payload = __REFLECT_WORKDAY_DATA__;
+    const evidence = payload.evidence || {};
+    const reflection = payload.reflection || {};
+    const person = evidence.person?.display_name || "我";
+    const period = evidence.period || {};
+    const evidenceEvents = Array.isArray(evidence.events) ? evidence.events : [];
+    const pad = value => String(value).padStart(2, "0");
+    const escapeHTML = value => String(value ?? "").replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
+    const toDate = iso => new Date(iso);
+    const dateKey = iso => {
+      if (!iso) return "";
+      const match = String(iso).match(/^\d{4}-\d{2}-\d{2}/);
+      return match ? match[0] : "";
+    };
+    const timeKey = iso => {
+      const match = String(iso || "").match(/T(\d{2}:\d{2})/);
+      return match ? match[1] : "12:00";
+    };
+    const timeMinutes = value => {
+      const [h, m] = String(value || "00:00").split(":").map(Number);
+      return h * 60 + m;
+    };
+    const formatDay = key => new Intl.DateTimeFormat("zh-CN", {month:"long", day:"numeric", weekday:"short", timeZone:"UTC"}).format(new Date(`${key}T12:00:00Z`));
+    const formatFullDay = key => new Intl.DateTimeFormat("zh-CN", {year:"numeric", month:"long", day:"numeric", timeZone:"UTC"}).format(new Date(`${key}T12:00:00Z`));
+    const formatRange = () => {
+      if (!period.start_inclusive || !period.end_exclusive) return "时间范围未知";
+      const start = toDate(period.start_inclusive);
+      const end = new Date(toDate(period.end_exclusive).getTime() - 1);
+      const one = new Intl.DateTimeFormat("zh-CN", {year:"numeric", month:"long", day:"numeric", timeZone:period.timezone || undefined});
+      return one.format(start) === one.format(end) ? one.format(start) : `${one.format(start)} — ${one.format(end)}`;
+    };
+    const listDates = () => {
+      if (!period.start_inclusive || !period.end_exclusive) return [...new Set(evidenceEvents.map(e => dateKey(e.start)).filter(Boolean))];
+      const result = [];
+      const cursor = new Date(`${dateKey(period.start_inclusive)}T12:00:00Z`);
+      const endKey = dateKey(period.end_exclusive);
+      const endsAtMidnight = /T00:00(?::00(?:\.0+)?)?(?:Z|[+-])/.test(period.end_exclusive);
+      const stop = new Date(`${endKey}T12:00:00Z`);
+      if (!endsAtMidnight) stop.setUTCDate(stop.getUTCDate() + 1);
+      while (cursor < stop && result.length < 8) {
+        result.push(`${cursor.getUTCFullYear()}-${pad(cursor.getUTCMonth()+1)}-${pad(cursor.getUTCDate())}`);
+        cursor.setUTCDate(cursor.getUTCDate() + 1);
+      }
+      return result;
+    };
+
+    const fallbackBlocks = evidenceEvents.map(event => ({
+      id: event.id,
+      date: dateKey(event.start),
+      start: timeKey(event.start),
+      end: event.end ? timeKey(event.end) : null,
+      title: event.title,
+      summary: event.outcome || (event.source === "git" ? "一次 Git 提交" : "Codex 任务线索"),
+      source: event.source,
+      evidence: "observed",
+      event_ids: [event.id]
+    }));
+    const curatedBlocks = Array.isArray(reflection.blocks) && reflection.blocks.length ? reflection.blocks : fallbackBlocks;
+    const schedule = reflection.schedule && typeof reflection.schedule === "object" ? reflection.schedule : {};
+    const workPeriods = Array.isArray(schedule.work_periods) ? schedule.work_periods : [];
+    const breakPeriods = Array.isArray(schedule.breaks) ? schedule.breaks : [];
+    const rawPrompts = Array.isArray(reflection.prompts) ? reflection.prompts : [];
+    const prompts = workPeriods.length ? rawPrompts.filter(prompt => workPeriods.some(period => timeMinutes(prompt.start) >= timeMinutes(period.start) && timeMinutes(prompt.end) <= timeMinutes(period.end))) : rawPrompts;
+    const dates = listDates();
+    let selectedDate = dates[0] || dateKey(evidenceEvents[0]?.start) || new Date().toISOString().slice(0,10);
+
+    const headline = document.getElementById("headline");
+    const daySummary = document.getElementById("daySummary");
+    const heroNote = document.getElementById("heroNote");
+    headline.textContent = `${formatFullDay(selectedDate)} · 工作回想`;
+    daySummary.textContent = reflection.headline || "这一天，留下了一些线索。";
+    heroNote.textContent = reflection.note || "没有记录就是没有记录。可能在工作、休息、摸鱼，也可能只是还没想起来。";
+    document.getElementById("personName").textContent = person;
+    document.getElementById("periodText").textContent = `${formatRange()} · ${period.timezone || "本地时区"}`;
+    document.getElementById("scheduleText").textContent = workPeriods.length
+      ? `惯常工作：${workPeriods.map(item => `${item.start}–${item.end}`).join(" · ")}`
+      : "工作时段尚未设置";
+    document.getElementById("eventCount").textContent = evidenceEvents.length;
+    document.getElementById("blockCount").textContent = curatedBlocks.length;
+    document.getElementById("gapCount").textContent = prompts.length;
+
+    const nav = document.getElementById("dayNav");
+    dates.forEach(day => {
+      const button = document.createElement("button");
+      button.className = "day-pill";
+      button.textContent = formatDay(day);
+      button.dataset.day = day;
+      button.addEventListener("click", () => { selectedDate = day; render(); });
+      nav.appendChild(button);
+    });
+
+    const highlights = Array.isArray(reflection.highlights) && reflection.highlights.length
+      ? reflection.highlights
+      : [...new Set(evidenceEvents.map(e => e.outcome || e.title).filter(Boolean))].slice(0,5);
+    document.getElementById("highlights").innerHTML = highlights.length
+      ? highlights.map(item => `<li>${escapeHTML(item)}</li>`).join("")
+      : `<li>今天的线索还很少，先从一段记得最清楚的事情开始。</li>`;
+
+    const timeline = document.getElementById("timeline");
+    const footprints = document.getElementById("footprints");
+    const eventDialog = document.getElementById("eventDialog");
+    const eventDetailTitle = document.getElementById("eventDetailTitle");
+    const eventDetailMeta = document.getElementById("eventDetailMeta");
+    const eventDetailCopy = document.getElementById("eventDetailCopy");
+    const promptStrip = document.getElementById("promptStrip");
+
+    function layoutVisualEvents(blocks) {
+      const minutePixels = 72 / 60;
+      const minimumLaneWidth = 280;
+      const titleLineUnits = (minimumLaneWidth - 28) / 14;
+      const titleUnits = value => Array.from(String(value || "未命名片段")).reduce((total, character) => {
+        if (/\s/.test(character)) return total + .35;
+        return total + (/[^\u0000-\u00ff]/.test(character) ? 1 : .58);
+      }, 0);
+      const contentHeight = block => {
+        const estimatedLines = Math.max(1, Math.ceil(titleUnits(block.title) / titleLineUnits));
+        const titleLines = estimatedLines + (estimatedLines >= 4 ? 1 : 0);
+        return 43 + titleLines * 19;
+      };
+      const items = blocks.map((block, order) => {
+        const start = timeMinutes(block.start);
+        const naturalEnd = block.end ? timeMinutes(block.end) : start + 12;
+        const end = Math.max(start + 12, naturalEnd);
+        const realHeight = (end - start) * minutePixels;
+        const minimumHeight = contentHeight(block);
+        const visualHeight = Math.max(realHeight, minimumHeight);
+        return {block, order, start, end, realHeight, minimumHeight, visualHeight, visualEnd: start + visualHeight / minutePixels, lane: 0, lanes: 1};
+      }).sort((left, right) => left.start - right.start || left.end - right.end || left.order - right.order);
+
+      const finishCluster = cluster => {
+        if (!cluster.length) return;
+        const laneEnds = [];
+        cluster.forEach(item => {
+          let lane = laneEnds.findIndex(end => end <= item.start);
+          if (lane === -1) lane = laneEnds.length;
+          laneEnds[lane] = item.visualEnd;
+          item.lane = lane;
+        });
+        cluster.forEach(item => { item.lanes = laneEnds.length; });
+      };
+
+      let cluster = [];
+      let clusterEnd = -Infinity;
+      items.forEach(item => {
+        if (cluster.length && item.start >= clusterEnd) {
+          finishCluster(cluster);
+          cluster = [];
+          clusterEnd = -Infinity;
+        }
+        cluster.push(item);
+        clusterEnd = Math.max(clusterEnd, item.visualEnd);
+      });
+      finishCluster(cluster);
+      return items;
+    }
+
+    function sourceLabel(source) {
+      return ({codex:"Codex", git:"Git", mixed:"Codex + Git", manual:"本人补记"})[source] || "数字线索";
+    }
+
+    function openEventDetail(block) {
+      eventDetailTitle.textContent = block.title || "工作片段";
+      eventDetailMeta.textContent = `${formatDay(block.date || selectedDate)} · ${block.start}${block.end ? `–${block.end}` : " · 时间点"} · ${sourceLabel(block.source)}`;
+      eventDetailCopy.textContent = block.summary || (block.source === "manual" ? "只留下了这段补记。" : "这条线索暂时没有更多摘要。");
+      eventDialog.showModal();
+    }
+
+    function renderTimeline() {
+      const dayBlocks = curatedBlocks.filter(block => block.date === selectedDate);
+      const dayPrompts = prompts.filter(prompt => prompt.date === selectedDate);
+      const allTimes = [...dayBlocks, ...dayPrompts, ...workPeriods, ...breakPeriods].flatMap(item => [item.start, item.end]).filter(Boolean).map(timeMinutes);
+      const earliest = allTimes.length ? Math.min(...allTimes) : 9 * 60;
+      const latest = allTimes.length ? Math.max(...allTimes) : 18 * 60;
+      let firstHour = Math.floor((earliest - 30) / 60);
+      let lastHour = Math.ceil((latest + 30) / 60);
+      firstHour = Math.max(0, firstHour); lastHour = Math.min(24, lastHour);
+      timeline.style.setProperty("--hours", lastHour - firstHour);
+      timeline.innerHTML = "";
+      promptStrip.innerHTML = "";
+      promptStrip.hidden = dayPrompts.length === 0;
+      for (let hour = firstHour; hour <= lastHour; hour++) {
+        const line = document.createElement("div"); line.className = "hour-row"; line.style.top = `${(hour-firstHour)*72}px`;
+        line.innerHTML = `<span>${pad(hour)}:00</span>`; timeline.appendChild(line);
+      }
+      workPeriods.forEach(period => {
+        const start = timeMinutes(period.start); const end = timeMinutes(period.end);
+        const band = document.createElement("div"); band.className = "work-window";
+        band.style.top = `${((start-firstHour*60)/60)*72}px`; band.style.height = `${Math.max(18, ((end-start)/60)*72)}px`;
+        band.innerHTML = `<span>惯常工作</span>`; timeline.appendChild(band);
+      });
+      breakPeriods.forEach(period => {
+        const start = timeMinutes(period.start); const end = timeMinutes(period.end);
+        const band = document.createElement("div"); band.className = "break-window";
+        band.style.top = `${((start-firstHour*60)/60)*72}px`; band.style.height = `${Math.max(18, ((end-start)/60)*72)}px`;
+        band.innerHTML = `<span>${escapeHTML(period.label || "固定间隔")}</span>`; timeline.appendChild(band);
+      });
+      dayPrompts.forEach(prompt => {
+        const item = document.createElement("article"); item.className = "gap";
+        item.innerHTML = `<strong>${escapeHTML(prompt.start)}–${escapeHTML(prompt.end)} · 这里有点安静</strong><span>${escapeHTML(prompt.text)}</span><em>在 Codex 对话中补充</em>`;
+        promptStrip.appendChild(item);
+      });
+      const layouts = layoutVisualEvents(dayBlocks);
+      timeline.style.minWidth = "0";
+      layouts.forEach(layout => {
+        const {block, start, lane, lanes, realHeight, minimumHeight, visualHeight} = layout;
+        const columnGap = 1.25;
+        const width = (100 - columnGap * (lanes - 1)) / lanes;
+        const item = document.createElement("button"); item.className = `event ${block.source || "codex"}`;
+        if (realHeight >= minimumHeight + 45 && block.summary) item.classList.add("roomy");
+        item.style.top = `${((start-firstHour*60)/60)*72}px`; item.style.height = `${visualHeight}px`;
+        item.style.left = `${lane * (width + columnGap)}%`; item.style.width = `${width}%`; item.style.right = "auto";
+        item.style.setProperty("--duration-height", `${Math.max(10, Math.min(realHeight, visualHeight))}px`);
+        item.innerHTML = `<div class="event-time-row"><span class="event-time">${escapeHTML(block.start)}${block.end ? `–${escapeHTML(block.end)}` : " · 时间点"}</span><span class="event-detail-hint">详情 ↗</span></div><div class="event-title">${escapeHTML(block.title)}</div>${block.summary ? `<div class="event-summary">${escapeHTML(block.summary)}</div>` : ""}`;
+        item.setAttribute("aria-label", `${block.start} ${block.title}，查看完整总结`);
+        item.addEventListener("click", () => openEventDetail(block));
+        timeline.appendChild(item);
+      });
+      document.getElementById("timelineTitle").textContent = `${formatDay(selectedDate)} · 一天的纹理`;
+    }
+
+    function renderFootprints() {
+      const rows = evidenceEvents.filter(event => dateKey(event.start) === selectedDate);
+      footprints.innerHTML = rows.length ? rows.map(event => `<article class="footprint"><div class="footprint-meta"><span>${escapeHTML(event.source)} · ${escapeHTML(event.project)}</span><span>${escapeHTML(timeKey(event.start))}</span></div><div class="footprint-title">${escapeHTML(event.title)}</div></article>`).join("") : `<p class="empty-note">这一天没有找到数字脚印。</p>`;
+    }
+
+    function render() {
+      nav.querySelectorAll(".day-pill").forEach(button => button.classList.toggle("active", button.dataset.day === selectedDate));
+      headline.textContent = `${formatFullDay(selectedDate)} · 工作回想`;
+      renderTimeline(); renderFootprints();
+    }
+
+    document.getElementById("closeEventDialog").addEventListener("click", () => eventDialog.close());
+    eventDialog.addEventListener("click", event => { if (event.target === eventDialog) eventDialog.close(); });
+
+    render();
+  </script>
+</body>
+</html>

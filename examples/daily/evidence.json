@@ -1,0 +1,90 @@
+{
+  "schema_version": 2,
+  "generated_at": "2025-03-11T00:00:00+00:00",
+  "person": {
+    "display_name": "示例用户",
+    "git_author": "Example User"
+  },
+  "period": {
+    "start_inclusive": "2025-03-10T00:00:00+08:00",
+    "end_exclusive": "2025-03-11T00:00:00+08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "sources": {
+    "codex": {
+      "files_scanned": 2,
+      "malformed_lines": 0,
+      "events": 4,
+      "errors": []
+    },
+    "git": {
+      "repositories_scanned": 1,
+      "events": 1,
+      "errors": []
+    }
+  },
+  "events": [
+    {
+      "id": "codex:example-contract",
+      "source": "codex",
+      "shape": "interval",
+      "start": "2025-03-10T09:10:00+08:00",
+      "end": "2025-03-10T10:20:00+08:00",
+      "project": "sample-service",
+      "title": "核对接口兼容约束",
+      "outcome": "确认旧客户端继续使用兼容分支",
+      "evidence": "observed"
+    },
+    {
+      "id": "codex:example-tests",
+      "source": "codex",
+      "shape": "interval",
+      "start": "2025-03-10T09:50:00+08:00",
+      "end": "2025-03-10T11:00:00+08:00",
+      "project": "sample-service",
+      "title": "补齐兼容边界测试",
+      "outcome": "覆盖旧字段缺失与混合版本输入",
+      "evidence": "observed"
+    },
+    {
+      "id": "codex:example-fix",
+      "source": "codex",
+      "shape": "interval",
+      "start": "2025-03-10T13:40:00+08:00",
+      "end": "2025-03-10T15:00:00+08:00",
+      "project": "sample-service",
+      "title": "实现兼容处理并验证回归",
+      "outcome": "兼容分支与现有测试均通过",
+      "evidence": "observed"
+    },
+    {
+      "id": "git:sample:abc123",
+      "source": "git",
+      "shape": "point",
+      "start": "2025-03-10T15:18:00+08:00",
+      "end": null,
+      "project": "sample-service",
+      "title": "fix(api): preserve legacy request compatibility",
+      "outcome": "Example User 提交 abc123",
+      "evidence": "observed",
+      "repo_fingerprint": "sample-fingerprint",
+      "commit_hash": "abc123"
+    },
+    {
+      "id": "codex:example-release",
+      "source": "codex",
+      "shape": "interval",
+      "start": "2025-03-10T16:00:00+08:00",
+      "end": "2025-03-10T17:00:00+08:00",
+      "project": "sample-service",
+      "title": "整理发布检查表",
+      "outcome": "补齐上线前验证与回滚步骤",
+      "evidence": "observed"
+    }
+  ],
+  "limitations": [
+    "Codex 任务区间是 agent 运行窗口，不等于用户持续工作时间。",
+    "Git commit 是时间点，不能据此推算编码时长。",
+    "没有数字线索的时间可能是会议、沟通、思考、休息或尚未想起。"
+  ]
+}

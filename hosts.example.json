@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "hosts": [
+    {
+      "host_id": "dev-a",
+      "ssh_alias": "sample-server-a",
+      "python_path": "python3",
+      "sessions_root": "/home/user/.codex/sessions",
+      "repo_roots": [
+        "/work/projects"
+      ]
+    },
+    {
+      "host_id": "dev-b",
+      "ssh_alias": "sample-server-b",
+      "python_path": "/opt/conda/bin/python3",
+      "sessions_root": "/home/user/.codex/sessions",
+      "repo_roots": []
+    }
+  ]
+}
