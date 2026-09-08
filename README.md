@@ -1,10 +1,37 @@
 # Reflect Workday
 
-一个注重隐私的 Codex skill：用精简的 Codex 与 Git 线索，帮你回想一天或一周做过什么。
+**写周报前，先找回这一周做过什么。**
 
-[English](README.en.md) · [隐私设计](docs/privacy.md) · [工作原理](docs/architecture.md) · [发布到 GitHub](docs/publishing.md) · [参与贡献](CONTRIBUTING.md)
+Reflect Workday 是一个 Codex Skill，适合工作分散在多个任务、项目或开发机上的人。它把精简的 Codex 与 Git 线索整理成每日时间线或每周回顾，再由你补充会议、思考和其他没有数字记录的工作。
+
+**[先生成示例报告](#demo)** · [安装与使用](#install) · [English](README.en.md) · [隐私设计](docs/privacy.md)
+
+Python **3.9+** · 核心脚本零第三方依赖 · 本地 HTML 报告 · [MIT](LICENSE)
 
 > 它提供的是“可见线索 + 本人回想”，不是精确工时，也不用于绩效评价。
+
+你可以用它：
+
+- **回顾昨天**：把多个 Codex 任务与 Git 提交放回同一条时间线。
+- **整理周报素材**：生成最近 7 天或周一到周日的主题与关键结果。
+- **汇总多台开发机**：通过已授权的 OpenSSH 主机采集精简线索，在本地合并去重。
+
+<a id="demo"></a>
+## 先生成一份示例报告
+
+只需 Python 和 Git。这个演示使用仓库自带的合成数据，不需要安装 Skill、读取工作记录或连接远端主机。
+
+```bash
+git clone https://github.com/rzr002/reflect-workday.git
+cd reflect-workday
+python3 scripts/render_report.py \
+  --evidence examples/daily/evidence.json \
+  --reflection examples/daily/reflection.json \
+  --template assets/reflection.html \
+  --output /tmp/reflect-workday-daily.html
+```
+
+用浏览器打开 `/tmp/reflect-workday-daily.html`，即可查看下面的单日时间线。准备回顾自己的工作时，继续[安装与使用](#install)。
 
 ## 效果展示
 
@@ -52,27 +79,28 @@ Reflect Workday 不会读取或保存：
 
 核心采集与渲染脚本只使用 Python 标准库。
 
+<a id="install"></a>
 ## 安装
 
-克隆仓库：
+如果尚未运行上面的演示，先克隆仓库：
 
 ```bash
 git clone https://github.com/rzr002/reflect-workday.git
 cd reflect-workday
 ```
 
-把仓库根目录软链接到个人 skills 目录：
+在 macOS / Linux 上，把仓库根目录软链接到个人 Skills 目录。以下命令在目标已存在时仅显示现有路径，供你检查：
 
 ```bash
 mkdir -p "$HOME/.agents/skills"
-ln -s "$(pwd)" "$HOME/.agents/skills/reflect-workday"
+if [ -e "$HOME/.agents/skills/reflect-workday" ] || [ -L "$HOME/.agents/skills/reflect-workday" ]; then
+  ls -ld "$HOME/.agents/skills/reflect-workday"
+else
+  ln -s "$PWD" "$HOME/.agents/skills/reflect-workday"
+fi
 ```
 
-如果目标路径已经存在，先检查，不要直接覆盖：
-
-```bash
-ls -ld "$HOME/.agents/skills/reflect-workday"
-```
+保留克隆目录，软链接会持续指向它。若已安装另一个版本，确认其来源和本地修改后再决定如何替换。
 
 重启 Codex 后即可使用 `$reflect-workday`。
 
@@ -112,15 +140,7 @@ skill 会先展示只读执行计划。只有你明确确认后才会连接远�
 
 ## 本地示例
 
-生成合成数据的单日报告：
-
-```bash
-python3 scripts/render_report.py \
-  --evidence examples/daily/evidence.json \
-  --reflection examples/daily/reflection.json \
-  --template assets/reflection.html \
-  --output /tmp/reflect-workday-daily.html
-```
+单日报告见[示例演示](#demo)。以下命令在已克隆的仓库目录中运行。
 
 生成合成数据的周报：
 
@@ -182,3 +202,10 @@ node scripts/check_weekly_layout.js /tmp/reflect-workday-weekly.html /tmp/weekly
 ## 许可证
 
 [MIT](LICENSE)
+
+## 相关项目
+
+- 想把工作中有效的方法沉淀成 Wiki 和 Skill：[WorkSkill](https://github.com/rzr002/workskill)。
+- 想组织和调用已有的个人、团队 Skills：[Personal Workbench](https://github.com/rzr002/personal-workbench)。
+
+三个项目可以独立使用，目前没有自动传递报告或个人记录的集成。
